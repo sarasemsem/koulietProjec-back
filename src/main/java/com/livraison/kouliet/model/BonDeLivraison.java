@@ -11,7 +11,7 @@ import java.util.List;
 @Entity
 @Getter
 @Setter
-public class BonDeCommande {
+public class BonDeLivraison {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -47,9 +47,9 @@ public class BonDeCommande {
     @ManyToOne
     private Adresse adresseLivraison;
 
-    @OneToMany(mappedBy = "bonDeCommande", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "bonDeLivraison", cascade = CascadeType.ALL)
     private List<Colis> colis;
 
-    @OneToMany(mappedBy = "bonDeCommande", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "bonDeLivraison", cascade = CascadeType.ALL)
     private List<HistoriqueStatut> historiqueStatuts;
 }

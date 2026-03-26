@@ -6,7 +6,7 @@ import com.livraison.kouliet.exception.ResourceNotFoundException;
 import com.livraison.kouliet.mapper.BonDeCommandeMapper;
 import com.livraison.kouliet.model.*;
 import com.livraison.kouliet.repository.AdresseRepository;
-import com.livraison.kouliet.repository.BonDeCommandeRepository;
+import com.livraison.kouliet.repository.BonDeLivraisonRepository;
 import com.livraison.kouliet.repository.ExpediteurRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -20,7 +20,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class BonDeCommandeService {
 
-    private final BonDeCommandeRepository repository;
+    private final BonDeLivraisonRepository repository;
     private final BonDeCommandeMapper mapper;
     private final ExpediteurRepository expediteurRepository;
     private final AdresseRepository adresseRepository;
@@ -80,7 +80,6 @@ public class BonDeCommandeService {
         return mapper.toDto(commande);
     }
 
-    // ✅ UPDATE
     public BonDeCommandeDTO update(Long id, BonDeCommandeDTO dto) {
         BonDeCommande commande = repository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Commande introuvable"));

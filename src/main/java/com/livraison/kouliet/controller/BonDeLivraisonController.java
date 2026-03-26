@@ -3,7 +3,6 @@ package com.livraison.kouliet.controller;
 import com.livraison.kouliet.dto.BonDeCommandeDTO;
 import com.livraison.kouliet.enumRep.StatutCommande;
 import com.livraison.kouliet.mapper.BonDeCommandeMapper;
-import com.livraison.kouliet.model.BonDeCommande;
 import com.livraison.kouliet.service.BonDeCommandeService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
@@ -13,7 +12,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/bon-commandes")
 @RequiredArgsConstructor
-public class BonDeCommandeController {
+public class BonDeLivraisonController {
 
     private final BonDeCommandeService service;
     private final BonDeCommandeMapper mapper;
