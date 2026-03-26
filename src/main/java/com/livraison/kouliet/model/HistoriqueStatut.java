@@ -25,5 +25,5 @@ public class HistoriqueStatut {
     private StatutCommande nouveauStatut;
 
     @ManyToOne
-    private BonDeCommande bonDeCommande;
+    private BonDeLivraison bonDeLivraison;
 }

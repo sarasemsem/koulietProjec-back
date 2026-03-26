@@ -1,9 +1,9 @@
 package com.livraison.kouliet.service;
 
-import com.livraison.kouliet.dto.BonDeCommandeDTO;
+import com.livraison.kouliet.dto.BonDeLivraisonDTO;
 import com.livraison.kouliet.enumRep.StatutCommande;
 import com.livraison.kouliet.exception.ResourceNotFoundException;
-import com.livraison.kouliet.mapper.BonDeCommandeMapper;
+import com.livraison.kouliet.mapper.BonDeLivraisonMapper;
 import com.livraison.kouliet.model.*;
 import com.livraison.kouliet.repository.AdresseRepository;
 import com.livraison.kouliet.repository.BonDeLivraisonRepository;
@@ -18,30 +18,30 @@ import java.util.List;
 
 @Service
 @RequiredArgsConstructor
-public class BonDeCommandeService {
+public class BonDeLivraisonService {
 
     private final BonDeLivraisonRepository repository;
-    private final BonDeCommandeMapper mapper;
+    private final BonDeLivraisonMapper mapper;
     private final ExpediteurRepository expediteurRepository;
     private final AdresseRepository adresseRepository;
 
     /* ===============================
        CREATE COMMANDE
        =============================== */
-    public BonDeCommandeDTO creerCommande(BonDeCommandeDTO dto) {
+    public BonDeLivraisonDTO creerCommande(BonDeLivraisonDTO dto) {
 
         // DTO ➜ ENTITY
-        BonDeCommande commande = mapper.toEntity(dto);
+        BonDeLivraison bonDeLivraison = mapper.toEntity(dto);
 
         // Backend-managed fields
-        commande.setTrackingNumber(TrackingGenerator.generate());
-        commande.setDateCreation(new Date());
-        commande.setStatut(StatutCommande.A_RAMASSER.name());
+        bonDeLivraison.setTrackingNumber(TrackingGenerator.generate());
+        bonDeLivraison.setDateCreation(new Date());
+        bonDeLivraison.setStatut(StatutCommande.A_RAMASSER.name());
 
-        BigDecimal total = commande.getMontantTtc()
-                .add(commande.getLivraison() != null ? commande.getLivraison() : BigDecimal.ZERO);
+        BigDecimal total = bonDeLivraison.getMontantTtc()
+                .add(bonDeLivraison.getLivraison() != null ? bonDeLivraison.getLivraison() : BigDecimal.ZERO);
 
-        commande.setTotalAPayer(total);
+        bonDeLivraison.setTotalAPayer(total);
 
         // Attach Expediteur
         if (dto.getExpediteurId() != null) {
@@ -49,7 +49,7 @@ public class BonDeCommandeService {
                     .orElseThrow(() ->
                             new ResourceNotFoundException("Expediteur not found")
                     );
-            commande.setExpediteur(exp);
+            bonDeLivraison.setExpediteur(exp);
         }
 
         // Attach Adresse Livraison
@@ -58,15 +58,15 @@ public class BonDeCommandeService {
                     .orElseThrow(() ->
                             new ResourceNotFoundException("Adresse not found")
                     );
-            commande.setAdresseLivraison(adr);
+            bonDeLivraison.setAdresseLivraison(adr);
         }
 
-        BonDeCommande saved = repository.save(commande);
+        BonDeLivraison saved = repository.save(bonDeLivraison);
 
         return mapper.toDto(saved);
     }
     // ✅ LIST ALL
-    public List<BonDeCommandeDTO> findAll() {
+    public List<BonDeLivraisonDTO> findAll() {
         return repository.findAll()
                 .stream()
                 .map(mapper::toDto)
@@ -74,14 +74,14 @@ public class BonDeCommandeService {
     }
 
     // ✅ GET BY ID (for edit/view)
-    public BonDeCommandeDTO findById(Long id) {
-        BonDeCommande commande = repository.findById(id)
+    public BonDeLivraisonDTO findById(Long id) {
+        BonDeLivraison bonDeLivraison = repository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Commande introuvable"));
-        return mapper.toDto(commande);
+        return mapper.toDto(bonDeLivraison);
     }
 
-    public BonDeCommandeDTO update(Long id, BonDeCommandeDTO dto) {
-        BonDeCommande commande = repository.findById(id)
+    public BonDeLivraisonDTO update(Long id, BonDeLivraisonDTO dto) {
+        BonDeLivraison commande = repository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Commande introuvable"));
 
         mapper.updateEntityFromDto(dto, commande);
@@ -91,9 +91,9 @@ public class BonDeCommandeService {
     /* ===============================
        CHANGE STATUS
        =============================== */
-    public BonDeCommande changerStatut(Long id, StatutCommande nouveauStatut) {
+    public BonDeLivraison changerStatut(Long id, StatutCommande nouveauStatut) {
 
-        BonDeCommande commande = repository.findById(id)
+        BonDeLivraison commande = repository.findById(id)
                 .orElseThrow(() ->
                         new ResourceNotFoundException("Commande introuvable")
                 );
@@ -102,7 +102,7 @@ public class BonDeCommandeService {
         hist.setDateChangement(LocalDateTime.now());
         hist.setAncienStatut(StatutCommande.valueOf(commande.getStatut()));
         hist.setNouveauStatut(nouveauStatut);
-        hist.setBonDeCommande(commande);
+        hist.setBonDeLivraison(commande);
 
         commande.getHistoriqueStatuts().add(hist);
         commande.setStatut(nouveauStatut.name());
@@ -113,14 +113,14 @@ public class BonDeCommandeService {
     /* ===============================
        GET BY TRACKING
        =============================== */
-    public BonDeCommandeDTO getByTracking(String trackingNumber) {
-        BonDeCommande commande = repository.findByTrackingNumber(trackingNumber)
+    public BonDeLivraisonDTO getByTracking(String trackingNumber) {
+        BonDeLivraison bonDeLivraison = repository.findByTrackingNumber(trackingNumber)
                 .orElseThrow(() ->
                         new ResourceNotFoundException(
                                 "BonDeCommande introuvable avec tracking: " + trackingNumber
                         )
                 );
 
-        return mapper.toDto(commande);
+        return mapper.toDto(bonDeLivraison);
     }
 }

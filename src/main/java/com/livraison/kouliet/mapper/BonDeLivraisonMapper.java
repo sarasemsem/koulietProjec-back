@@ -1,19 +1,19 @@
 package com.livraison.kouliet.mapper;
 
-import com.livraison.kouliet.dto.BonDeCommandeDTO;
-import com.livraison.kouliet.model.BonDeCommande;
+import com.livraison.kouliet.dto.BonDeLivraisonDTO;
+import com.livraison.kouliet.model.BonDeLivraison;
 import org.springframework.stereotype.Component;
 
 @Component
-public class BonDeCommandeMapper {
+public class BonDeLivraisonMapper {
 
     /* =========================
        ENTITY ➜ DTO
        ========================= */
-    public BonDeCommandeDTO toDto(BonDeCommande entity) {
+    public BonDeLivraisonDTO toDto(BonDeLivraison entity) {
         if (entity == null) return null;
 
-        BonDeCommandeDTO dto = new BonDeCommandeDTO();
+        BonDeLivraisonDTO dto = new BonDeLivraisonDTO();
 
         dto.setId(entity.getId());
 
@@ -47,10 +47,10 @@ public class BonDeCommandeMapper {
     /* =========================
        DTO ➜ ENTITY
        ========================= */
-    public BonDeCommande toEntity(BonDeCommandeDTO dto) {
+    public BonDeLivraison toEntity(BonDeLivraisonDTO dto) {
         if (dto == null) return null;
 
-        BonDeCommande entity = new BonDeCommande();
+        BonDeLivraison entity = new BonDeLivraison();
 
         entity.setId(dto.getId());
 
@@ -74,7 +74,7 @@ public class BonDeCommandeMapper {
         entity.setTotalAPayer(dto.getTotalAPayer());
         return entity;
     }
-    public void updateEntityFromDto(BonDeCommandeDTO d, BonDeCommande e) {
+    public void updateEntityFromDto(BonDeLivraisonDTO d, BonDeLivraison e) {
         e.setNom(d.getNom());
         e.setPrenom(d.getPrenom());
         e.setTelephone(d.getTelephone());

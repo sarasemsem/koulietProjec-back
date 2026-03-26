@@ -18,5 +18,5 @@ public class Colis {
     private boolean fragile;
 
     @ManyToOne
-    private BonDeCommande bonDeCommande;
+    private BonDeLivraison bonDeLivraison;
 }

@@ -1,10 +1,9 @@
 package com.livraison.kouliet.repository;
-
-import com.livraison.kouliet.model.BonDeCommande;
+import com.livraison.kouliet.model.BonDeLivraison;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;
 
-public interface BonDeCommandeRepository extends JpaRepository<BonDeCommande, Long> {
-    Optional<BonDeCommande> findByTrackingNumber(String trackingNumber);
+public interface BonDeLivraisonRepository extends JpaRepository<BonDeLivraison, Long> {
+    Optional<BonDeLivraison> findByTrackingNumber(String trackingNumber);
 }
