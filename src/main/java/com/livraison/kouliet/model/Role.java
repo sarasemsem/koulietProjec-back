@@ -3,6 +3,8 @@ package com.livraison.kouliet.model;
 
 public enum Role {
     ADMIN,
-    USER,
+    LIVREUR,
+    PRESTATAIR,
+    EXPEDITEUR,
     MANAGER
 }

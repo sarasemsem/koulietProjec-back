@@ -33,6 +33,7 @@ public class BonDeLivraisonController {
     public BonDeLivraisonDTO suivreCommande(@PathVariable String tracking) {
         return service.getByTracking(tracking);
     }
+
     @GetMapping
     public List<BonDeLivraisonDTO> list() {
         return service.findAll();
