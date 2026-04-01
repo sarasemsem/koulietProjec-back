@@ -42,7 +42,7 @@ public class BonDeLivraison {
 
     private String statut;
     @ManyToOne
-    private Expediteur expediteur;
+    private User expediteur;
 
     @ManyToOne
     private Adresse adresseLivraison;

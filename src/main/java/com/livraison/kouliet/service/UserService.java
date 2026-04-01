@@ -24,11 +24,11 @@ public class UserService {
 
         User user = mapper.toEntity(dto);
         // Valeurs par défaut
-        user.setActif(true);
+        //user.setActif(true);
 
         // Normaliser le rôle
         if (dto.getRole() != null) {
-            user.setRole(dto.getRole().toUpperCase());
+            user.setRole(dto.getRole());
         }
         User saved = repository.save(user);
 
@@ -68,7 +68,7 @@ public class UserService {
         User user = repository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Utilisateur introuvable"));
 
-        user.setActif(false);
+       // user.setActif(false);
 
         return mapper.toDto(repository.save(user));
     }
@@ -76,7 +76,7 @@ public class UserService {
     /* GET BY ROLE  */
     public List<UserDTO> findByRole(String role) {
         return repository.findByRole(role.toUpperCase())
-                .getClass()
+                .stream()
                 .map(mapper::toDto)
                 .toList();
     }

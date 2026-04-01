@@ -18,10 +18,9 @@ public class AuthService {
     private final JwtService jwtService;
 
     public String register(String email, String password, Role role) {
-        if (userRepository.findByEmail(email).isPresent()) {
+        if (userRepository.findByEmail(email) == null) {
             throw new RuntimeException("Email already exists");
         }
-
         User user = new User();
         user.setEmail(email);
         user.setPassword(passwordEncoder.encode(password));
@@ -32,9 +31,10 @@ public class AuthService {
     }
 
     public Map<String, String> login(String email, String password) {
-        User user = userRepository.findByEmail(email)
-                .orElseThrow(() -> new RuntimeException("User not found"));
-
+        User user = userRepository.findByEmail(email);
+        if (user == null) {
+            throw new RuntimeException("User not found");
+        }
         if (!passwordEncoder.matches(password, user.getPassword())) {
             throw new RuntimeException("Invalid credentials");
         }

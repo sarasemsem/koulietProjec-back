@@ -34,25 +34,26 @@ public class UserController {
     // 🔹 3. Liste des utilisateurs
     @GetMapping
     public List<UserDTO> list() {
+
         return service.findAll();
     }
-
 
     // 🔹 4. Consulter par ID
     @GetMapping("/{id}")
     public UserDTO getById(@PathVariable Long id) {
-        return UserService.findById(id);
+        return service.findById(id);
     }
 
     // 🔹 5. Chercher par rôle
     @GetMapping("/role/{role}")
     public List<UserDTO> getByRole(@PathVariable String role) {
-        return UserService.findByRole(role);
+        return service.findByRole(role);
     }
 
     // 🔹 6. Désactiver utilisateur
     @PutMapping("/desactiver/{id}")
     public UserDTO desactiver(@PathVariable Long id) {
-        return UserService.desactiver(id);
+
+        return service.desactiver(id);
     }
 }

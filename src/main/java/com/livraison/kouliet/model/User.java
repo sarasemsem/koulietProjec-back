@@ -17,25 +17,23 @@ public class User {
     @Column(unique = true, nullable = false)
     private String email;
 
-    private String MF;
+    // ⚠️ nom peu clair → à améliorer
+    @Column(name = "mf")
+    private String mf;
 
     @Column(nullable = false)
     private String password;
-
     private String nom;
     private String prenom;
     private String telephone;
     private String adresse;
 
     @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
     private Role role;
 
-    // ✅ Implémentation correcte
-    // ✅ AJOUT IMPORTANT
-    private boolean actif = true;
+    // 🔹 utilisateur actif ou non
+    //private boolean actif = true;
 
-    // ✅ Convertir String ➜ Enum Role
-    public void setRole(String role) {
-        this.role = Role.valueOf(role);
-    }
+
 }

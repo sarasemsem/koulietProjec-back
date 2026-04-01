@@ -7,7 +7,7 @@ import com.livraison.kouliet.mapper.BonDeLivraisonMapper;
 import com.livraison.kouliet.model.*;
 import com.livraison.kouliet.repository.AdresseRepository;
 import com.livraison.kouliet.repository.BonDeLivraisonRepository;
-import com.livraison.kouliet.repository.ExpediteurRepository;
+import com.livraison.kouliet.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -22,7 +22,7 @@ public class BonDeLivraisonService {
 
     private final BonDeLivraisonRepository repository;
     private final BonDeLivraisonMapper mapper;
-    private final ExpediteurRepository expediteurRepository;
+    private final UserRepository userRepository;
     private final AdresseRepository adresseRepository;
 
     /* ===============================
@@ -43,9 +43,9 @@ public class BonDeLivraisonService {
 
         bonDeLivraison.setTotalAPayer(total);
 
-        // Attach Expediteur
+        // Attach User
         if (dto.getExpediteurId() != null) {
-            Expediteur exp = expediteurRepository.findById(dto.getExpediteurId())
+            User exp = userRepository.findById(dto.getExpediteurId())
                     .orElseThrow(() ->
                             new ResourceNotFoundException("Expediteur not found")
                     );
