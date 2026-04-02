@@ -9,7 +9,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/utilisateurs")
-@CrossOrigin(origins = "*") // pour Angular
+@CrossOrigin(origins = "http://localhost:4200/") // pour Angular
 
 public class UserController {
 

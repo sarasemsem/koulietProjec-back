@@ -21,17 +21,13 @@ public class UserService {
 
     /* CREATE UTILISATEUR */
     public UserDTO creerUtilisateur(UserDTO dto) {
-
         User user = mapper.toEntity(dto);
-        // Valeurs par défaut
-        //user.setActif(true);
 
-        // Normaliser le rôle
+        //user.setActif(true);
         if (dto.getRole() != null) {
             user.setRole(dto.getRole());
         }
         User saved = repository.save(user);
-
         return mapper.toDto(saved);
     }
 

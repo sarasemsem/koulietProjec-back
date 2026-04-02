@@ -20,8 +20,9 @@ public class UserMapper {
         dto.setTelephone(user.getTelephone());
         dto.setEmail(user.getEmail());
         dto.setAdresse(user.getAdresse());
-        dto.setRole(dto.getRole());
-
+        dto.setRole(user.getRole());
+        dto.setMatriculeFiscale(user.getMatriculeFiscale());
+        dto.setActif(user.isActif());
         return dto;
     }
 
@@ -39,7 +40,7 @@ public class UserMapper {
         user.setEmail(dto.getEmail());
         user.setAdresse(dto.getAdresse());
         user.setRole(dto.getRole());
-
+        user.setActif(dto.isActif());
         return user;
     }
 

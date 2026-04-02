@@ -13,27 +13,24 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
     @Column(unique = true, nullable = false)
     private String email;
-
-    // ⚠️ nom peu clair → à améliorer
     @Column(name = "mf")
-    private String mf;
-
-    @Column(nullable = false)
+    private String matriculeFiscale;
+    @Column(nullable = true)
     private String password;
+    @Column()
     private String nom;
+    @Column()
     private String prenom;
+    @Column()
     private String telephone;
+    @Column()
     private String adresse;
-
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private Role role;
-
-    // 🔹 utilisateur actif ou non
-    //private boolean actif = true;
+    private boolean actif = false;
 
 
 }
