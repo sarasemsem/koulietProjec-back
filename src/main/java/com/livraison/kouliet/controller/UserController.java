@@ -9,7 +9,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/utilisateurs")
-@CrossOrigin(origins = "http://localhost:4200/") // pour Angular
+@CrossOrigin(origins = "http://localhost:4200/")
 
 public class UserController {
 
@@ -23,6 +23,7 @@ public class UserController {
     // 🔹 1. Créer utilisateur
     @PostMapping
     public UserDTO creer(@RequestBody UserDTO dto) {
+        System.out.println("role: "+dto.getRole());
         return service.creerUtilisateur(dto);
     }
 

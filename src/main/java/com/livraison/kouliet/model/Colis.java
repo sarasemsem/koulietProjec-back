@@ -14,8 +14,8 @@ public class Colis {
     private Long id;
 
     private String description;
-    private double poids;
-    private boolean fragile;
+    private Double poids;
+    private Boolean fragile;
 
     @ManyToOne
     private BonDeLivraison bonDeLivraison;

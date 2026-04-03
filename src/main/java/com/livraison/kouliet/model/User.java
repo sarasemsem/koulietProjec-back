@@ -1,6 +1,8 @@
 package com.livraison.kouliet.model;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -13,7 +15,9 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Column(unique = true, nullable = false)
+    @NotNull
+    @NotBlank
+    @Column(unique = true,nullable = false)
     private String email;
     @Column(name = "mf")
     private String matriculeFiscale;
@@ -30,7 +34,7 @@ public class User {
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private Role role;
-    private boolean actif = false;
+    private Boolean actif = false;
 
 
 }

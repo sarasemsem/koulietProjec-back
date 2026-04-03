@@ -22,7 +22,7 @@ public class UserService {
     /* CREATE UTILISATEUR */
     public UserDTO creerUtilisateur(UserDTO dto) {
         User user = mapper.toEntity(dto);
-
+        System.out.println("email : "+user.getEmail());
         //user.setActif(true);
         if (dto.getRole() != null) {
             user.setRole(dto.getRole());

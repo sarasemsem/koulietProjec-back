@@ -22,7 +22,7 @@ public class UserMapper {
         dto.setAdresse(user.getAdresse());
         dto.setRole(user.getRole());
         dto.setMatriculeFiscale(user.getMatriculeFiscale());
-        dto.setActif(user.isActif());
+        dto.setActif(user.getActif());
         return dto;
     }
 
@@ -33,14 +33,30 @@ public class UserMapper {
         }
 
         User user = new User();
-        user.setId(dto.getId());
-        user.setNom(dto.getNom());
-        user.setPrenom(dto.getPrenom());
-        user.setTelephone(dto.getTelephone());
-        user.setEmail(dto.getEmail());
-        user.setAdresse(dto.getAdresse());
-        user.setRole(dto.getRole());
-        user.setActif(dto.isActif());
+        if (dto.getId()!= null) {
+            user.setId(dto.getId());
+        }
+        if (dto.getNom()!= null) {
+            user.setNom(dto.getNom());
+        }
+        if (dto.getPrenom()!= null) {
+            user.setPrenom(dto.getPrenom());
+        }
+        if (dto.getTelephone() != null) {
+            user.setTelephone(dto.getTelephone());
+        }
+        if (dto.getEmail() != null) {
+            user.setEmail(dto.getEmail());
+        }
+        if (dto.getAdresse() != null) {
+            user.setAdresse(dto.getAdresse());
+        }
+        if (dto.getRole() != null ) {
+            user.setRole(dto.getRole());
+        }
+        if (dto.getActif() != null) {
+            user.setActif(dto.getActif());
+        }
         return user;
     }
 
@@ -49,7 +65,6 @@ public class UserMapper {
         if (dto == null || user == null) {
             return;
         }
-        // On met à jour seulement les champs non nulls
         if (dto.getNom() != null) {
             user.setNom(dto.getNom());
         }
