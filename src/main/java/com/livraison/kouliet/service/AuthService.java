@@ -1,5 +1,7 @@
 package com.livraison.kouliet.service;
 
+import com.livraison.kouliet.exception.InvalidCredentialsException;
+import com.livraison.kouliet.exception.UserNotFoundException;
 import com.livraison.kouliet.model.Role;
 import com.livraison.kouliet.model.User;
 import com.livraison.kouliet.repository.UserRepository;
@@ -8,6 +10,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.Map;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -31,12 +34,11 @@ public class AuthService {
     }
 
     public Map<String, String> login(String email, String password) {
-        User user = userRepository.findByEmail(email);
-        if (user == null) {
-            throw new RuntimeException("User not found");
-        }
+        User user = userRepository.findByEmail(email)
+                .orElseThrow(() -> new UserNotFoundException("User not found"));
+
         if (!passwordEncoder.matches(password, user.getPassword())) {
-            throw new RuntimeException("Invalid credentials");
+            throw new InvalidCredentialsException("Invalid credentials");
         }
 
         return Map.of("token", jwtService.generateToken(user));

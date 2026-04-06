@@ -17,6 +17,7 @@ import lombok.RequiredArgsConstructor;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Optional;
 
 @Component
 @RequiredArgsConstructor
@@ -42,10 +43,10 @@ public class JwtAuthFilter extends OncePerRequestFilter {
         String email = jwtService.extractClaims(token).getSubject();
 
         if (email != null && SecurityContextHolder.getContext().getAuthentication() == null) {
-            User user = userRepository.findByEmail(email);
-            if (user == null) {
-                throw new RuntimeException("User not found");
-            }
+
+            User user = userRepository.findByEmail(email)
+                    .orElseThrow(() -> new RuntimeException("User not found"));
+
             UsernamePasswordAuthenticationToken authToken =
                     new UsernamePasswordAuthenticationToken(
                             user, null,
